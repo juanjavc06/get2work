@@ -52,12 +52,12 @@ def user_detail(request, pk, format=None):
         return Response(serializer.data)
 
     elif request.method == 'PUT':
-        serializer = UserSerializer(service, data=request.data)
+        serializer = UserSerializer(user, data=request.data)
 
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-        return Respose(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
         user.delete()
@@ -120,7 +120,7 @@ def proyect_list(request, format=None):
     """
     if request.method == 'GET':
         proyects = Proyect.objects.all()
-        serializer = ProyectSerializer(services, many=True)
+        serializer = ProyectSerializer(proyects, many=True)
         return Response(serializer.data)
 
     if request.method == 'POST':
@@ -144,12 +144,12 @@ def proyect_detail(request, pk, format=None):
         return Response(serializer.data)
 
     elif request.method == 'PUT':
-        serializer = ProyectSerializer(service, data=request.data)
+        serializer = ProyectSerializer(proyect, data=request.data)
 
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-        return Respose(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
         proyect.delete()
